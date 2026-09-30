@@ -6,13 +6,18 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.x-38B2D8?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Audit Standard](https://img.shields.io/badge/Security-ISO_27001_Compliant-006C4A)](https://www.iso.org/isoiec-27001-information-security.html)
 [![Compliance](https://img.shields.io/badge/Procurement-Dual--Envelope_Protocol-0037B0)](#two-envelope-sealed-bidding-protocol)
+[![Live Demo](https://img.shields.io/badge/Live_Access-etendermediaprima.ai.studio-0037B0?logo=googlechrome&logoColor=white)](https://etendermediaprima.ai.studio/)
 
 **BID NEXT** is an enterprise-grade, audit-compliant digital eTender and procurement intelligence platform engineered for **Media Prima Berhad**. It governs the end-to-end procurement lifecycle: from RFP specification authoring and legal NDA gatekeeping, to dual-envelope cryptographic bid submissions, tamper-proof audit clearance, automated commercial evaluation matrices, and tender board award recommendations.
+
+> 🚀 **Live Demo / Akses Terus**:  
+> Layari aplikasi eTender secara langsung di **[https://etendermediaprima.ai.studio/](https://etendermediaprima.ai.studio/)**
 
 ---
 
 ## Table of Contents
 
+- [Live Application Link (Direct Access)](#live-application-link-direct-access)
 - [Executive Summary](#executive-summary)
 - [Core Capabilities](#core-capabilities)
   - [1. Two-Envelope Sealed Bidding Protocol](#1-two-envelope-sealed-bidding-protocol)
@@ -33,6 +38,18 @@
   - [Production Build](#production-build)
 - [Regulatory & Compliance Alignment](#regulatory--compliance-alignment)
 - [Contributing & License](#contributing--license)
+
+---
+
+## Live Application Link (Direct Access)
+
+Akses terus sistem eTender tanpa perlu setup local environment:
+
+🔗 **URL Rasmi**: [https://etendermediaprima.ai.studio/](https://etendermediaprima.ai.studio/)
+
+| Persekitaran | Pautan | Status |
+|---|---|---|
+| **Live Web App** | [https://etendermediaprima.ai.studio/](https://etendermediaprima.ai.studio/) | 🟢 Aktif |
 
 ---
 
