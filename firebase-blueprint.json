@@ -1,0 +1,303 @@
+{
+  "entities": {
+    "Tender": {
+      "title": "Tender",
+      "description": "Enterprise tender master record containing specifications, deadlines, and BOQ items",
+      "type": "object",
+      "properties": {
+        "referenceNo": {
+          "type": "string",
+          "description": "Unique tender reference code (e.g. MP/ENG/2026/042)",
+          "maxLength": 64
+        },
+        "title": {
+          "type": "string",
+          "description": "Official tender procurement title",
+          "maxLength": 256
+        },
+        "department": {
+          "type": "string",
+          "description": "Originating department or business unit",
+          "maxLength": 128
+        },
+        "location": {
+          "type": "string",
+          "description": "Project location or execution site",
+          "maxLength": 128
+        },
+        "submissionType": {
+          "type": "string",
+          "description": "Protocol type such as Two-Envelope Sealed Protocol",
+          "maxLength": 64
+        },
+        "status": {
+          "type": "string",
+          "description": "Current tender lifecycle status",
+          "enum": ["Draft", "Active", "Closed", "Audited", "Released", "Awarded"]
+        },
+        "approvedCapexBudget": {
+          "type": "number",
+          "description": "Approved capital expenditure budget in MYR"
+        },
+        "currency": {
+          "type": "string",
+          "description": "ISO currency code",
+          "maxLength": 8
+        },
+        "closingDeadline": {
+          "type": "string",
+          "description": "ISO timestamp for bid submission closing"
+        },
+        "qaClosingDeadline": {
+          "type": "string",
+          "description": "ISO timestamp for clarification inquiries closing"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of tender creation"
+        }
+      },
+      "required": ["referenceNo", "title", "department", "status", "approvedCapexBudget", "closingDeadline"]
+    },
+    "BidSubmission": {
+      "title": "BidSubmission",
+      "description": "Two-envelope vendor bid submission record with cryptographic checksum",
+      "type": "object",
+      "properties": {
+        "tenderId": {
+          "type": "string",
+          "description": "ID of the target tender",
+          "maxLength": 64
+        },
+        "bidderId": {
+          "type": "string",
+          "description": "User or vendor ID of the submitting bidder",
+          "maxLength": 64
+        },
+        "bidderName": {
+          "type": "string",
+          "description": "Authorized signatory name",
+          "maxLength": 128
+        },
+        "companyName": {
+          "type": "string",
+          "description": "Registered company name",
+          "maxLength": 128
+        },
+        "vendorId": {
+          "type": "string",
+          "description": "Official Media Prima vendor registration ID",
+          "maxLength": 64
+        },
+        "cidbGrade": {
+          "type": "string",
+          "description": "CIDB contractor grading (e.g. G7)",
+          "maxLength": 16
+        },
+        "ssmRegistration": {
+          "type": "string",
+          "description": "SSM registration number",
+          "maxLength": 64
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "ISO timestamp of submission"
+        },
+        "checksumSha256": {
+          "type": "string",
+          "description": "SHA-256 integrity hash of the bid submission package",
+          "maxLength": 128
+        },
+        "complianceDeclared": {
+          "type": "boolean",
+          "description": "Whether statutory and technical compliance was declared"
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Commercial subtotal excluding tax"
+        },
+        "sstAmount": {
+          "type": "number",
+          "description": "Calculated 6% Sales & Service Tax"
+        },
+        "grandTotal": {
+          "type": "number",
+          "description": "Final commercial bid total in MYR"
+        },
+        "isAuditVerified": {
+          "type": "boolean",
+          "description": "Whether Internal Audit has verified and unsealed the bid"
+        }
+      },
+      "required": ["tenderId", "bidderId", "companyName", "grandTotal", "checksumSha256"]
+    },
+    "ClarificationQuestion": {
+      "title": "ClarificationQuestion",
+      "description": "Pre-bid clarification inquiry raised by bidder and answered by procurement/SME",
+      "type": "object",
+      "properties": {
+        "tenderId": {
+          "type": "string",
+          "description": "Target tender ID",
+          "maxLength": 64
+        },
+        "category": {
+          "type": "string",
+          "description": "Category code (tech, boq, legal, sub, gen)",
+          "maxLength": 32
+        },
+        "categoryLabel": {
+          "type": "string",
+          "description": "Human readable category label",
+          "maxLength": 64
+        },
+        "trackingRef": {
+          "type": "string",
+          "description": "Unique query tracking code",
+          "maxLength": 64
+        },
+        "subject": {
+          "type": "string",
+          "description": "Query subject heading",
+          "maxLength": 256
+        },
+        "details": {
+          "type": "string",
+          "description": "Detailed explanation of the clarification request",
+          "maxLength": 4096
+        },
+        "submittedBy": {
+          "type": "string",
+          "description": "Name of inquiry author",
+          "maxLength": 128
+        },
+        "submittedByCompany": {
+          "type": "string",
+          "description": "Company of inquiry author",
+          "maxLength": 128
+        },
+        "submittedAt": {
+          "type": "string",
+          "description": "ISO timestamp when submitted"
+        },
+        "status": {
+          "type": "string",
+          "description": "Resolution status",
+          "enum": ["under_review", "official_addendum", "procurement_directive", "closed"]
+        },
+        "officialAnswer": {
+          "type": "string",
+          "description": "Official published answer or addendum text",
+          "maxLength": 4096
+        }
+      },
+      "required": ["tenderId", "category", "subject", "details", "submittedBy", "status"]
+    },
+    "NdaAgreement": {
+      "title": "NdaAgreement",
+      "description": "Executed digital Non-Disclosure Agreement record",
+      "type": "object",
+      "properties": {
+        "tenderId": {
+          "type": "string",
+          "description": "Tender reference or ID",
+          "maxLength": 64
+        },
+        "bidderId": {
+          "type": "string",
+          "description": "Bidder user ID",
+          "maxLength": 64
+        },
+        "signedFullName": {
+          "type": "string",
+          "description": "Full legal name of signatory",
+          "maxLength": 128
+        },
+        "identificationNumber": {
+          "type": "string",
+          "description": "NRIC or Passport number",
+          "maxLength": 64
+        },
+        "signedAt": {
+          "type": "string",
+          "description": "ISO timestamp of signature"
+        },
+        "ipAddress": {
+          "type": "string",
+          "description": "Signatory client IP address",
+          "maxLength": 64
+        }
+      },
+      "required": ["tenderId", "bidderId", "signedFullName", "identificationNumber", "signedAt"]
+    },
+    "AuditLogEvent": {
+      "title": "AuditLogEvent",
+      "description": "Immutable procurement audit trail entry",
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp of event"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User identifier",
+          "maxLength": 64
+        },
+        "userName": {
+          "type": "string",
+          "description": "Full user name",
+          "maxLength": 128
+        },
+        "role": {
+          "type": "string",
+          "description": "Active role at time of event",
+          "maxLength": 32
+        },
+        "action": {
+          "type": "string",
+          "description": "Action performed (e.g. BID_SUBMITTED, AUDIT_VERIFIED)",
+          "maxLength": 64
+        },
+        "details": {
+          "type": "string",
+          "description": "Summary context details",
+          "maxLength": 1024
+        },
+        "tenderRef": {
+          "type": "string",
+          "description": "Associated tender reference",
+          "maxLength": 64
+        },
+        "hashToken": {
+          "type": "string",
+          "description": "Tamper-evident hash token",
+          "maxLength": 128
+        }
+      },
+      "required": ["timestamp", "userId", "userName", "role", "action", "tenderRef"]
+    }
+  },
+  "firestore": {
+    "/tenders/{tenderId}": {
+      "schema": "#/entities/Tender",
+      "description": "Active and historical tenders published by Media Prima Procurement"
+    },
+    "/bids/{bidId}": {
+      "schema": "#/entities/BidSubmission",
+      "description": "Sealed and audited bid submissions for tenders"
+    },
+    "/clarifications/{clarificationId}": {
+      "schema": "#/entities/ClarificationQuestion",
+      "description": "Pre-bid clarification questions and official addendums"
+    },
+    "/ndaAgreements/{ndaId}": {
+      "schema": "#/entities/NdaAgreement",
+      "description": "Digitally executed NDA agreements gating access to RFP packages"
+    },
+    "/auditLogs/{logId}": {
+      "schema": "#/entities/AuditLogEvent",
+      "description": "Immutable tamper-evident audit logs across the procurement lifecycle"
+    }
+  }
+}

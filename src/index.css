@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-50: #f0f3f7;
+  --color-navy-100: #e1e8f0;
+  --color-navy-200: #c5d3df;
+  --color-navy-300: #9bb4c7;
+  --color-navy-400: #698fac;
+  --color-navy-500: #487291;
+  --color-navy-600: #395b77;
+  --color-navy-700: #2f4961;
+  --color-navy-800: #1e293b;
+  --color-navy-900: #0f172a;
+
+  --color-mpRed: #dc2626;
+  --color-offWhite: #f8fafc;
+
+  --color-primary: #0037b0;
+  --color-primary-container: #1d4ed8;
+  --color-secondary: #006c4a;
+
+  --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-inter);
+    color: #1e293b;
+    background-color: #f8fafc;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom scrollbars matching user's design */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.material-symbols-outlined.fill-1 {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Custom Spacing & Typography Utility Classes from Media Prima Spec */
+.px-margin {
+  padding-left: clamp(1rem, 3vw, 2rem);
+  padding-right: clamp(1rem, 3vw, 2rem);
+}
+
+.gap-space-sm { gap: 0.5rem; }
+.gap-space-md { gap: 1rem; }
+.gap-space-lg { gap: 1.5rem; }
+.gap-space-xl { gap: 2rem; }
+.p-space-sm { padding: 0.5rem; }
+.p-space-md { padding: 1rem; }
+.p-space-lg { padding: 1.5rem; }
+.p-space-xl { padding: 2rem; }
+.pt-space-lg { padding-top: 1.5rem; }
+.pb-space-md { padding-bottom: 1rem; }
+.pb-space-xl { padding-bottom: 2rem; }
+.pb-space-sm { padding-bottom: 0.5rem; }
+.mt-space-sm { margin-top: 0.5rem; }
+.mt-space-md { margin-top: 1rem; }
+.mt-space-lg { margin-top: 1.5rem; }
+.mt-space-xl { margin-top: 2rem; }
+
+.font-headline-xl { font-size: clamp(24px, 3vw, 36px); line-height: 1.2; font-weight: 700; letter-spacing: -0.025em; }
+.font-headline-lg { font-size: 26px; line-height: 34px; font-weight: 600; letter-spacing: -0.02em; }
+.font-headline-md { font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.015em; }
+.font-headline-sm { font-size: 16px; line-height: 24px; font-weight: 600; letter-spacing: -0.01em; }
+.font-body-lg { font-size: 16px; line-height: 26px; font-weight: 400; }
+.font-body-md { font-size: 14px; line-height: 22px; font-weight: 400; }
+.font-body-sm { font-size: 12px; line-height: 18px; font-weight: 400; }
+.font-label-md { font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: 0.01em; }
+.font-label-sm { font-size: 11px; line-height: 14px; font-weight: 600; letter-spacing: 0.04em; }
+.font-code-sm { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }

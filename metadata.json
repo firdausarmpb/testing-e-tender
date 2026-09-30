@@ -1,0 +1,8 @@
+{
+  "name": "Remix BID NEXT - Media Prima eTender Intelligence",
+  "description": "Audit-compliant enterprise tender platform managing tender setup, digital NDA sign-off, dual-envelope submissions, audit verification, and commercial comparison matrices.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

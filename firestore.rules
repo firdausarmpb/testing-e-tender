@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Catch-All Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'firdausabd88@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // 2. Tenders Collection
+    match /tenders/{tenderId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if isAdmin();
+    }
+
+    // 3. Bid Submissions Collection
+    match /bids/{bidId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isAdmin();
+    }
+
+    // 4. Pre-Bid Clarifications Collection
+    match /clarifications/{clarificationId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if isAdmin();
+    }
+
+    // 5. Digital NDA Agreements Collection
+    match /ndaAgreements/{ndaId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      // NDAs are immutable once executed
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    // 6. Audit Trail Logs Collection (Append-only)
+    match /auditLogs/{logId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      // Strict immutability: Audit logs cannot be updated or deleted
+      allow update, delete: if false;
+    }
+
+    // 7. Admins and User Roles
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Connection test collection
+    match /test/{docId} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}
